@@ -10,6 +10,8 @@
 // ("11.", '.') -> ["11", ""]
 // (".11", '.') -> ["", "11"]
 // ("11.22", '.') -> ["11", "22"]
+#define UNUSED(variable) (void)variable
+
 std::vector<std::string> split(const std::string &str, char d)
 {
     std::vector<std::string> r;
@@ -31,6 +33,8 @@ std::vector<std::string> split(const std::string &str, char d)
 
 int main(int argc, char const *argv[])
 {
+    UNUSED(argc);
+    UNUSED(argv);
     try
     {
         std::vector<std::vector<std::string> > ip_pool;
