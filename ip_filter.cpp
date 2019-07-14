@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 // ("",  '.') -> [""]
 // ("11", '.') -> ["11"]
@@ -33,10 +34,67 @@ ip_address split(const std::string &str, char d)
     return r;
 }
 
+void filter_any(std::vector<ip_address> ip_pool, std::string search_str){
+  for (auto ip: ip_pool){
+    for (auto octet : ip){
+      if (octet == search_str){
+      std::cout << ip[0] << "." << ip[1] << "." << ip[2] << "." << ip[3] << std::endl;
+      break;
+      }
+    }
+
+  }
+}
+
+void print_ip_vector(const std::vector<ip_address> &ip_pool){
+    for(auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip)
+    {
+        for(auto ip_part = ip->cbegin(); ip_part != ip->cend(); ++ip_part)
+        {
+            if (ip_part != ip->cbegin())
+            {
+                std::cout << ".";
+
+            }
+            std::cout << *ip_part;
+        }
+        std::cout << std::endl;
+    }
+}
+
+void filter_one(std::vector<ip_address> ip_pool, std::string search_str){
+    for (auto ip: ip_pool){
+       if (ip[0] == search_str){
+        std::cout << ip[0] << "." << ip[1] << "." << ip[2] << "." << ip[3] << std::endl;
+        }
+        //std::cout<<ip[0]<< " " << search_str <<std::endl;
+    }
+}
+
+void filter_two(std::vector<ip_address> ip_pool, std::string first_str, std::string second_str){
+    for (auto ip: ip_pool){
+       if ((ip[0] == first_str) &&
+           (ip[1] == second_str)) {
+        std::cout << ip[0] << "." << ip[1] << "." << ip[2] << "." << ip[3] << std::endl;
+        }
+    }
+}
+
+bool greater (ip_address a, ip_address b){
+  for (uint i = 0; i < a.size(); ++i){
+    uint8_t an = std::atoi(a[i].c_str());
+    uint8_t bn = std::atoi(b[i].c_str());
+    if (an > bn)
+      return true;
+    else if (an < bn)
+      return false;
+  }
+      return true;
+}
+
+
 int main(int argc, char const *argv[])
 {
-    UNUSED(argc);
-    UNUSED(argv);
 
     try
     {
@@ -49,20 +107,12 @@ int main(int argc, char const *argv[])
         }
 
         // TODO reverse lexicographically sort
+        auto sort_result = ip_pool;
 
-        for(auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip)
-        {
-            for(auto ip_part = ip->cbegin(); ip_part != ip->cend(); ++ip_part)
-            {
-                if (ip_part != ip->cbegin())
-                {
-                    std::cout << ".";
+        std::sort(ip_pool.begin(), ip_pool.end(), greater);
 
-                }
-                std::cout << *ip_part;
-            }
-            std::cout << std::endl;
-        }
+        print_ip_vector(ip_pool);
+
 
         // 222.173.235.246
         // 222.130.177.64
@@ -73,6 +123,7 @@ int main(int argc, char const *argv[])
         // 1.1.234.8
 
         // TODO filter by first byte and output
+        filter_one(ip_pool, "1");
         // ip = filter(1)
 
         // 1.231.69.33
@@ -83,6 +134,7 @@ int main(int argc, char const *argv[])
 
         // TODO filter by first and second bytes and output
         // ip = filter(46, 70)
+        filter_two(ip_pool, "46", "70");
 
         // 46.70.225.39
         // 46.70.147.26
@@ -91,6 +143,7 @@ int main(int argc, char const *argv[])
 
         // TODO filter by any byte and output
         // ip = filter_any(46)
+        filter_any(ip_pool, "46");
 
         // 186.204.34.46
         // 186.46.222.194
@@ -132,5 +185,7 @@ int main(int argc, char const *argv[])
         std::cerr << e.what() << std::endl;
     }
 
+    UNUSED(argc);
+    UNUSED(argv);
     return 0;
 }
