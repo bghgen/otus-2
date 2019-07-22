@@ -46,6 +46,29 @@ void filter_any(std::vector<ip_address> ip_pool, std::string search_str){
   }
 }
 
+
+auto filter_octet = [](std::vector<ip_address> &ip_pool, int &octet_number, const auto filter) {
+  std::string str = std::to_string(filter);
+  std::vector<ip_address> res;
+  for (auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip){
+     if ((*ip)[octet_number] == str){
+            res.push_back(*ip);
+      }
+  }
+  ++octet_number;
+  ip_pool = res;
+};
+
+template <typename ... Args>
+constexpr void filter(std::vector<ip_address> &ip_pool, Args... args){
+  if (sizeof...(Args) > 4)
+    return;
+  int octet_number = 0;
+
+  (filter_octet(ip_pool, octet_number, args), ...);
+
+}
+
 void print_ip_vector(const std::vector<ip_address> &ip_pool){
     for(auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip)
     {
@@ -111,7 +134,8 @@ int main(int argc, char const *argv[])
 
         std::sort(ip_pool.begin(), ip_pool.end(), greater);
 
-        print_ip_vector(ip_pool);
+        // print_ip_vector(ip_pool);
+
 
 
         // 222.173.235.246
@@ -123,7 +147,7 @@ int main(int argc, char const *argv[])
         // 1.1.234.8
 
         // TODO filter by first byte and output
-        filter_one(ip_pool, "1");
+        // filter_one(ip_pool, "1");
         // ip = filter(1)
 
         // 1.231.69.33
@@ -134,7 +158,7 @@ int main(int argc, char const *argv[])
 
         // TODO filter by first and second bytes and output
         // ip = filter(46, 70)
-        filter_two(ip_pool, "46", "70");
+         filter_two(ip_pool, "46", "70");
 
         // 46.70.225.39
         // 46.70.147.26
@@ -143,7 +167,13 @@ int main(int argc, char const *argv[])
 
         // TODO filter by any byte and output
         // ip = filter_any(46)
-        filter_any(ip_pool, "46");
+        // filter_any(ip_pool, "46");
+        std::cout<< std::endl;
+        //filter(ip_pool, 46,70);
+        filter(ip_pool, 346,70);
+
+        print_ip_vector(ip_pool);
+
 
         // 186.204.34.46
         // 186.46.222.194
@@ -179,6 +209,7 @@ int main(int argc, char const *argv[])
         // 46.49.43.85
         // 39.46.86.85
         // 5.189.203.46
+
     }
     catch(const std::exception &e)
     {

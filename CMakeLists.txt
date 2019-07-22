@@ -8,10 +8,10 @@ endif (DEFINED ENV{TRAVIS_BUILD_NUMBER})
 
 add_executable(ip_filter ip_filter.cpp)
 
-set_target_properties(ip_filter PROPERTIES
-    CXX_STANDARD 14
-    CXX_STANDARD_REQUIRED ON
-)
+set(CMAKE_C_COMPILER "gcc-6")
+set(CMAKE_CXX_COMPILER "g++-6")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+
 
 target_include_directories(ip_filter
     PRIVATE "${CMAKE_BINARY_DIR}"
