@@ -2,6 +2,12 @@ language: cpp
 before_script:
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
+- sudo apt-get install libgtest-dev cmake -y
+- cd /usr/src/gtest
+- sudo cmake CMakeLists.txt
+- sudo make
+- sudo cp *.a /usr/lib
+- cd $TRAVIS_BUILD_DIR
 before_install:
 # C++17
   - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
@@ -11,7 +17,6 @@ install:
   # C++17
   - sudo apt-get install -qq g++-6
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
-
 script:
 - cmake .
 - cmake --build .
