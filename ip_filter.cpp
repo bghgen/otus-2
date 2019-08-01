@@ -1,7 +1,7 @@
 #include "lib.h"
 #include <string>
 
-int main(int argc, char const *argv[])
+int main(int, char const *[])
 {
 
     try
@@ -37,7 +37,5 @@ int main(int argc, char const *argv[])
         std::cerr << e.what() << std::endl;
     }
 
-    UNUSED(argc);
-    UNUSED(argv);
     return 0;
 }

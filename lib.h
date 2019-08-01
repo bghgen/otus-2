@@ -5,13 +5,15 @@
 #include <iostream>
 #include <cstdlib>
 
-#define UNUSED(variable) (void)variable
-
 using ip_address =  std::vector<std::string>;
 
 ip_address split(const std::string &str, char d);
 
 std::vector<ip_address> filter_any(const std::vector<ip_address> &ip_vector, int filter);
+
+void print_ip_vector(const std::vector<ip_address> &ip_pool);
+
+bool greater (ip_address a, ip_address b);
 
 auto filter_octet = [](std::vector<ip_address> &ip_vector, int &octet_number, const auto filter) {
   std::string str = std::to_string(filter);
@@ -35,10 +37,4 @@ std::vector<ip_address> filter( std::vector<ip_address> ip_vector, Args... args)
   (filter_octet(result, octet_number, args), ...);
 
   return result;
-
 }
-
-
-void print_ip_vector(const std::vector<ip_address> &ip_pool);
-
-bool greater (ip_address a, ip_address b);
