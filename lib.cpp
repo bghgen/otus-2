@@ -21,8 +21,8 @@ ip_address split(const std::string &str, char d)
 
 std::vector<ip_address>  filter_any(const std::vector<ip_address> &ip_vector, int filter){
   std::vector<ip_address> result;
-  for (auto ip: ip_vector){
-    for (auto octet : ip){
+  for (const auto &ip: ip_vector){
+    for (const auto &octet : ip){
       if (std::atoi(octet.c_str()) == filter){
       result.push_back(ip);
       break;
@@ -48,7 +48,7 @@ void print_ip_vector(const std::vector<ip_address> &ip_pool){
     }
 }
 
-bool greater (ip_address a, ip_address b){
+bool greater (const ip_address &a, const ip_address &b){
   for (uint i = 0; i < a.size(); ++i){
     uint8_t an = std::atoi(a[i].c_str());
     uint8_t bn = std::atoi(b[i].c_str());

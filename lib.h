@@ -13,7 +13,7 @@ std::vector<ip_address> filter_any(const std::vector<ip_address> &ip_vector, int
 
 void print_ip_vector(const std::vector<ip_address> &ip_pool);
 
-bool greater (ip_address a, ip_address b);
+bool greater (const ip_address &a, const ip_address &b);
 
 template <typename ... Args>
 std::vector<ip_address> filter( std::vector<ip_address> ip_vector, Args... args){
