@@ -2,15 +2,15 @@
 #include "lib.h"
 
 TEST(GreaterTest, first_byte){
-  ip_address a = {"1", "99", "68", "23"};
-  ip_address b = {"2", "13", "24", "64"};
-  EXPECT_EQ(greater(a, b), false);
+  IP::ip_address a = {"1", "99", "68", "23"};
+  IP::ip_address b = {"2", "13", "24", "64"};
+  EXPECT_EQ(IP::greater(a, b), false);
 }
 
 TEST(GreaterTest, last_byte){
-  ip_address a = {"2", "2", "2", "4"};
-  ip_address b = {"2", "2", "2", "2"};
-  EXPECT_EQ(greater(a, b), true );
+  IP::ip_address a = {"2", "2", "2", "4"};
+  IP::ip_address b = {"2", "2", "2", "2"};
+  EXPECT_EQ(IP::greater(a, b), true );
 }
 
 int main(int argc, char **argv){

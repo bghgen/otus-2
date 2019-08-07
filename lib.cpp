@@ -1,5 +1,7 @@
 #include "lib.h"
 
+namespace IP {
+  
 ip_address split(const std::string &str, char d)
 {
     ip_address r;
@@ -58,4 +60,6 @@ bool greater (const ip_address &a, const ip_address &b){
       return false;
   }
       return true;
+}
+
 }
