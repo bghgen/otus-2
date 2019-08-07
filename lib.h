@@ -17,8 +17,8 @@ bool greater (const ip_address &a, const ip_address &b);
 
 template <typename ... Args>
 std::vector<ip_address> filter( std::vector<ip_address> ip_vector, Args... args){
-  if (sizeof...(Args) > 4)
-    throw std::invalid_argument( "received more than 4 numbers to filter" );
+  static_assert((sizeof...(Args) <= 4),  "received more than 4 numbers to filter");
+  
   int octet_number = 0;
   std::vector<ip_address> result = ip_vector;
 
